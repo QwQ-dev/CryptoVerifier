@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>twomillions.other.cryptoverifier</groupId>
+        <artifactId>CryptoVerifier</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>CryptoVerifier-ExamplePlugin</artifactId>
+    <version>1.0.1</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- EventAPI: 用于提供事件监听。您需要改为从本地导入 Jar. -->
+        <dependency>
+            <groupId>twomillions.other.cryptoverifier</groupId>
+            <artifactId>CryptoVerifier-EventAPI</artifactId>
+            <version>1.1.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ValidationAPI: 用于提供自定义检测项。您需要改为从本地导入 Jar. -->
+        <dependency>
+            <groupId>twomillions.other.cryptoverifier</groupId>
+            <artifactId>CryptoVerifier-ValidationAPI</artifactId>
+            <version>1.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- CommandAPI: 用于提供自定义命令项。您需要改为从本地导入 Jar. -->
+        <dependency>
+            <groupId>twomillions.other.cryptoverifier</groupId>
+            <artifactId>CryptoVerifier-CommandAPI</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Commons: 用于提供常用部分，线程池、入口接口、验证枚举等。您需要改为从本地导入 Jar. -->
+        <dependency>
+            <groupId>twomillions.other.cryptoverifier</groupId>
+            <artifactId>CryptoVerifier-Commons-Server</artifactId>
+            <version>1.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- CoreAPI: 用于提供核心的 API 接口和功能。您需要改为从本地导入 Jar. -->
+        <dependency>
+            <groupId>twomillions.other.cryptoverifier</groupId>
+            <artifactId>CryptoVerifier-CoreAPI</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,136 @@
+# 警告: 安全起见，您绝不应该泄露此配置文件的任何信息，请您仔细阅读整个配置文件
+
+# 验证服务端口
+PORT: 17354
+
+# 线程池设置
+THREAD-POOL:
+  # 核心线程数
+  # 定义线程池中始终保持活动的线程数量
+  # 这些线程会一直存在，即使它们处于空闲状态，也不会被回收
+  # 将核心线程数设置为处理器核心数的 1 倍到 2 倍之间可以有效利用资源，但实际的最佳值会因系统负载而有所不同
+  # 使用 max 将设置为 Integer.MAX_VALUE
+  CORE-POOL-SIZE: 8
+
+  # 最大线程数
+  # 定义线程池中允许存在的最大线程数量。
+  # 当线程池中的活动线程数已经达到了核心线程数，而仍然有新的任务提交到线程池时，线程池会创建新的线程来处理这些任务，直到线程数达到最大线程数
+  # 一般情况下，将最大线程数设置为核心线程数的 2 倍是常见的做法，但需要根据具体情况进行调整
+  # 使用 max 将设置为 Integer.MAX_VALUE
+  MAX-POOL-SIZE: 16
+
+  # 非核心线程的空闲时间（毫秒）
+  # 当线程池中的线程数超过核心线程数，并且空闲一段时间后，多余的线程会被回收
+  # 这个时间间隔即为空闲线程的存活时间
+  KEEP-ALIVE-TIME: 60000
+
+  # 任务队列的容量
+  # 用于存储等待执行的任务的队列的最大容量
+  # 当线程池的活动线程数达到核心线程数时，后续的任务将被放入任务队列中等待执行
+  # 使用 max 将设置为 Integer.MAX_VALUE
+  QUEUE-CAPACITY: 100
+
+# 动态更改的安全加密字段。
+# 您不应该手动更改此选项，您绝不应该泄露此选项的配置
+SECURE-FIELD: ""
+
+# 客户端 UUID 密钥对
+# 此处自动生成配置文件时将会随机生成一个，您绝对不应该随意更改这一个选项
+# 如果您更改则会导致 UUID 无法被正常解密，UUID 验证将会报废，且永远无法过验证
+UUID-KEY-PAIR: ""
+
+# 服务端生成的客户端验证文件将会使用 AES 进行加密
+# 服务端在获取客户端验证文件内容之前需要先使用 AES 256 进行解密
+# 此处为 AES 256 Secret Key，此处自动生成配置文件时将会随机生成一个，您绝对不应该随意更改这一个选项
+# 如果您更改则会导致客户端发送的文件无法被正常读取，出现错误
+AES-256-SECRET-KEY: ""
+
+# 超时时间，客户端连接但无响应多久后自动关闭 (毫秒)
+SOCKET-TIME-OUT: 5000
+
+# 当 RESET-INTERVAL 规定的时间内一个 IP 有大于 THRESHOLD 个连接数时
+# 则为了安全期间，屏蔽此 IP 的验证申请，屏蔽 IP 会根据 RESET-INTERVAL 时间进行重置 (单位毫秒)
+# 若您使用集群功能，那么此功能只会处理本机的连接
+THRESHOLD: 20
+RESET-INTERVAL: 60000
+
+# 并行检查间隔
+# 如果许可证启用了并行限制，那么每隔多久检查一次过期占位并删除它
+# 这个值不应该太低也不应该太高，半分钟或一分钟应该是合适的，太低会降低性能，而太高会导致无法及时处理过时占位 (单位毫秒)
+PARALLEL-CHECK-INTERVAL: 60000
+
+# 当客户端发送占位请求后，客户端可以占位多久
+# 这个值不应该太高，我认为六分钟较好，若值太低客户端需要频繁发送请求，若太高则占位时间太久，无法及时获取状态
+# 当客户端占位后需要在规定的时间内再次发送请求以表示继续占位，若在规定时间内未发送请求则会在下一次并行检查中删除占位
+#
+# 这个值还有另一个用处:
+# 如果您使用了使用次数限制功能，并且此 IP 已经占位，那么此 IP 在占位的这段时间内重复验证并不会重复扣除验证次数
+# 尽管不会扣除验证次数，但是依然会检查验证次数是否超出限制，这使得灵活性提升，开发者依然可以在验证次数到达峰值时进行操作，如暂停服务等 (单位毫秒)
+PARALLEL-OFFSET-TIME-THRESHOLD: 360000
+
+# Redis 数据库设置 (必须使用)
+REDIS:
+  IP: 127.0.0.1
+  PORT: 6379
+  AUTH:
+    USER: ""
+    PASSWORD: ""
+  CUSTOM-URL: ""
+
+# 如果许可证到期是否应该删除服务端数据 (建议开启 节省空间)
+EXPIRED-DELETE: true
+
+# 缓存过期时间
+# 当客户端发送验证文件到服务端后，我们需要对客户端验证文件进行解密以找到 UUID，随后在服务端找到对应的数据进行各种检查
+# 缓存将会在第一次找到服务端数据后把它和对应的 UUID 进行保存，以节省重复验证 I/O 导致的性能下降
+# 这个缓存应该多久删除一次，我推荐 20 分钟左右，此数值不应该太小 (单位分钟)
+CACHE-EXPIRE-TIME: 20
+
+# 数据存储类型，服务端数据是使用文件存储还是数据库，MongoDB、MySQL、File
+# 注意，如果您需要使用集群功能，则必须使用数据库来保证数据同步，否则会出现错误
+DATA-STORAGE-TYPE: "File"
+
+# Mongo 数据库设置
+MONGO:
+  IP: 127.0.0.1
+  PORT: 27017
+
+  # 使用用户名或密码 (若没有设置用户密码则两个都不填写)
+  AUTH:
+    USER: ""
+    PASSWORD: ""
+
+  # 自定义 Mongo 连接 URL
+  #  如果启用则需要自己写连接 URL，上面的指定内容全部作废，数据库名: CryptoVerifier
+  #  示例: mongodb://USER:PWD@IP:PORT/CryptoVerifier - 使用用户密码登陆指定服务器的 CryptoVerifier 数据库
+  CUSTOM-URL: ""
+
+# MySQL 数据库设置 (使用 MySQL 记得新建 CryptoVerifier 库)
+MYSQL:
+  # MySQL5 使用: com.mysql.jdbc.Driver
+  # MySQL8 使用: com.mysql.cj.jdbc.Driver
+  DRIVER: com.mysql.cj.jdbc.Driver
+  IP: 127.0.0.1
+  PORT: 3306
+  AUTH:
+    USER: ""
+    PASSWORD: ""
+  CUSTOM-URL: ""
+
+# 自定义返回结果
+# 默认配置是安全的，且给出的客户端示例兼容的，如果您需要更改此项那么请注意客户端适配。
+#
+# 开发者可以拆分结果，验证通过后将用户信息打印至控制台等，让用户知道更多关于自己许可证的信息，如过期时间等
+#
+# 我们不建议您修改所有的返回信息，这可能会导致用户信息泄露。
+# 我们只建议您在验证通过、被封禁、被限制 (IP HWID 验证次数 并行)、过期等特殊情况下提供相应信息以便了解情况。
+#
+# 不支持: UNKNOWN FILE_ERROR FILE_NOT_FOUND_ERROR，因为这些情况我们无法获得许可证信息
+#
+# 支持变量: <uuid> <ip> <hwid> <extraData> <isTempBanned> <tempBannedInfo>
+#          <hwidLimit> <hwidAmount> <ipLimit> <ipAmount> <verificationLimit>
+#          <verificationTimes> <parallelLimit> <creationDate> <verificationInfo>
+#          <expirationDate>
+CUSTOM-RESULT:
+  TEMP_BANNED: "BANNED|<tempBannedInfo>"
+  SUCCESS: "SUCCESS|<uuid>|<expirationDate>|<verificationInfo>"
