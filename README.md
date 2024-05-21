@@ -3,13 +3,22 @@
 
 ---
 
+## 👼🏻 Future Plans
+
+I am working on rewriting this project in Rust to provide a safer and more streamlined license system. 
+This will be a long-term project that I will maintain and will also serve as my graduation project (even though it's still quite early).
+
+In any case, everything is under consideration and progress has already begun.
+
+---
+
 ## 🌍 Open Source
 
-无论如何，我想我是时候开源这个东西了，里面的代码有些地方十分复杂且屎山，我想应该是没有人愿意维护这坨东西。
+Anyway, I think it's time to open source this project. Some parts of the code are quite complex and messy, and I doubt anyone would want to maintain it.
 
-总之，如果这个项目能给您带来帮助，那是我的荣幸。关于更多部分可以查看 [QuickStart](https://github.com/QwQ-dev/CryptoVerifier/tree/main/QuickStart)，在使用中的任何新出现的 Bug 都不会得到解决。
+In any case, if this project can be of help to you, it is my honor. For more details, you can check [QuickStart](https://github.com/QwQ-dev/CryptoVerifier/tree/main/QuickStart). Any new bugs that arise during use will not be fixed.
 
-该项目不会有任何的支持，当然我愿意审阅 Pr，依然欢迎。
+This project will not receive any support, but I am still willing to review PRs and they are welcome.
 
 ---
 
